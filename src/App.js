@@ -20,12 +20,13 @@ function App(props) {
   const [guesses, setGuesses] = useState(0);
   const [selected, setSelected] = useState([]);
   const [random, setRandom] = useState(0);
-  const [game, setGame] = useState("start");
+  const [game, setGame] = useState("inactive");
+  const [guessed, setGuessed] = useState(false);
   const [winner, setWinner] = useState(false);
 
-  if (game !== "playing") {
+  if (game !== "active") {
     setRandom(Math.floor(Math.random() * (wordClues.length - 1)) + 1);
-    setGame("playing");
+    setGame("active");
   }
 
   let word = Object.keys(wordClues[random])[0];
@@ -52,6 +53,7 @@ function App(props) {
     if (toggleBlanks.indexOf("_ ") === -1 && guesses < 7) {
       setWinner(true);
     }
+    setGuessed(true);
   };
 
   return (
@@ -59,39 +61,66 @@ function App(props) {
       <div className='top'>
         <h1>Hangman</h1>
       </div>
-      <div className='clue'>
-        <h2>-- {clue} --</h2>
-      </div>
-      <div className='hangman'>
-        <Hangman guesses={guesses} winner={winner} />
-      </div>
-      <div className='blanks'>
-        <h2>{guesses < 7 ? toggleBlanks : "You Lose!"}</h2>
-      </div>
-      <div className='bottom'>
-        <div className='input'>
-          <h1>
-            {alphabet
-              .filter(letter => selected.indexOf(letter) === -1)
-              .map((item, i) => (
-                <button
-                  key={i}
-                  className='letter-btn'
-                  id={item}
-                  onClick={letterPress}
-                  date={Date()}
-                >
-                  {item}
-                </button>
-              ))}
-          </h1>
+      {toggleBlanks.indexOf("_ ") === -1 && guesses < 7 ? (
+        ""
+      ) : (
+        <div className='clue'>
+          <h2>-- {clue} --</h2>
         </div>
-        <div className='message'>
-          <h3>
-            {toggleBlanks.indexOf("_ ") === -1 && guesses < 7 ? "Winner!" : ""}
-          </h3>
-        </div>
+      )}
+      <div className='message'>
+        {toggleBlanks.indexOf("_ ") === -1 && guesses < 7 ? (
+          <>
+            <img
+              className='crown'
+              src='https://thumbs.gfycat.com/FreshSlipperyBrocketdeer-size_restricted.gif'
+              alt=''
+            />
+            <h1>Winner!</h1>
+            <br />
+            <button
+              className='win-btn'
+              onClick={() => window.location.reload()}
+            >
+              <p>PLAY AGAIN?</p>
+            </button>
+          </>
+        ) : (
+          ""
+        )}
       </div>
+
+      {toggleBlanks.indexOf("_ ") === -1 && guesses < 7 ? (
+        ""
+      ) : (
+        <>
+          <div className='hangman'>
+            <Hangman guesses={guesses} guessed={guessed} />
+          </div>
+          <div className='blanks'>
+            <h2>{guesses < 7 ? toggleBlanks : "You Lose!"}</h2>
+          </div>
+          <div className='bottom'>
+            <div className='input'>
+              <h2>
+                {alphabet
+                  .filter(letter => selected.indexOf(letter) === -1)
+                  .map((item, i) => (
+                    <button
+                      key={i}
+                      className='letter-btn'
+                      id={item}
+                      onClick={letterPress}
+                      date={Date()}
+                    >
+                      {item}
+                    </button>
+                  ))}
+              </h2>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
