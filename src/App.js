@@ -22,7 +22,6 @@ function App(props) {
   const [random, setRandom] = useState(0);
   const [game, setGame] = useState("inactive");
   const [guessed, setGuessed] = useState(false);
-  const [winner, setWinner] = useState(false);
 
   if (game !== "active") {
     setRandom(Math.floor(Math.random() * (wordClues.length - 1)) + 1);
@@ -46,12 +45,8 @@ function App(props) {
 
   const letterPress = e => {
     setSelected([...selected, e.target.id]);
-    console.log(selected);
     if (wordArr.indexOf(e.target.id) === -1) {
       setGuesses(guesses + 1);
-    }
-    if (toggleBlanks.indexOf("_ ") === -1 && guesses < 7) {
-      setWinner(true);
     }
     setGuessed(true);
   };

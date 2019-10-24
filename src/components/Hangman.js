@@ -1,9 +1,6 @@
 import React from "react";
 
 function Hangman(props) {
-  // if (props.winner) {
-  //     return <img className='crown' src="https://thumbs.gfycat.com/FreshSlipperyBrocketdeer-size_restricted.gif" alt=""/>
-  // } else {
   if (props.guesses === 0 && !props.guessed) {
     return (
       <div>
@@ -188,5 +185,5 @@ function Hangman(props) {
     );
   }
 }
-//}
+
 export default Hangman;

@@ -63,9 +63,7 @@ body {
 .win-btn {
   color: black;
   border: 0.1em solid rgb(0, 0, 0);
-  /* margin: 1em 1em 1em 1em; */
   border-radius: 0%;
-  /* box-sizing: border-box; */
   text-decoration: none;
   font-size: 0.8rem;
   text-align: center;
@@ -92,7 +90,6 @@ button:hover {
   grid-template-rows: 1;
   justify-items: center;
   align-items: center;
-  /* border: 1px solid rebeccapurple; */
 }
 
 .body {
@@ -128,7 +125,6 @@ button:hover {
   justify-items: center;
   justify-self: center;
   justify-content: center;
-  /* border: 1px solid rebeccapurple; */
 }
 .left-leg {
   width: 5vw;
